@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deposito de OPs</title>
+  <style>
+    :root {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #212121;
+      --bg-tertiary: #272727;
+      --bg-hover: #3f3f3f;
+      --border-color: #303030;
+      --text-primary: #f1f1f1;
+      --text-secondary: #aaa;
+      --accent: #3ea6ff;
+      --accent-hover: #4db8ff;
+      --danger: #f44336;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f5f5f5;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #fafafa;
+      --bg-hover: #e0e0e0;
+      --border-color: #e0e0e0;
+      --text-primary: #212121;
+      --text-secondary: #666;
+      --accent: #1976d2;
+      --accent-hover: #2196f3;
+      --danger: #d32f2f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Roboto", "Arial", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--bg-secondary);
+      padding: 0 16px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .logo span {
+      color: var(--text-secondary);
+      font-size: 12px;
+      background: var(--bg-hover);
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 600px;
+      margin: 0 40px;
+      display: flex;
+      gap: 0;
+    }
+
+    .search-container input {
+      flex: 1;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-right: none;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      font-size: 16px;
+      outline: none;
+      border-radius: 40px 0 0 40px;
+      transition: all 0.3s;
+    }
+
+    .search-container input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-btn {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 0 25px;
+      cursor: pointer;
+      border-radius: 0 40px 40px 0;
+      color: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+      background: var(--bg-hover);
+    }
+
+    .user-menu {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 18px;
+      transition: background 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-hover);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-hover);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg);
+    }
+
+    .container {
+      display: flex;
+      padding-top: 0;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: var(--bg-secondary);
+      padding: 12px 0;
+      height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--text-secondary);
+      border-radius: 4px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 24px;
+      color: var(--text-primary);
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .sidebar-item.active {
+      background: var(--bg-hover);
+      font-weight: 500;
+    }
+
+    .sidebar-divider {
+      border-top: 1px solid var(--border-color);
+      margin: 12px 0;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 24px;
+      max-width: 1800px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .card {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .corredores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .corredor-card {
+      background: var(--bg-tertiary);
+      padding: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .corredor-card:hover {
+      background: var(--bg-hover);
+      border-color: var(--text-secondary);
+    }
+
+    .corredor-card.selected {
+      border-color: var(--accent);
+      background: var(--bg-hover);
+    }
+
+    .corredor-card h3 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .corredor-card .count {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .ops-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 16px;
+    }
+
+    .op-card {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+      border: 1px solid var(--border-color);
+    }
+
+    .op-card:hover {
+      background: var(--bg-hover);
+    }
+
+    .op-info {
+      flex: 1;
+    }
+
+    .op-numero {
+      font-size: 16px;
+      font-weight: 500;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 6px;
+    }
+
+    .op-local {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .op-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-hover);
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      max-width: 400px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .alert-success {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid #4caf50;
+      color: #4caf50;
+    }
+
+    .alert-error {
+      background: rgba(244, 67, 54, 0.1);
+      border: 1px solid #f44336;
+      color: #f44336;
+    }
+
+    .alert-info {
+      background: rgba(62, 166, 255, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-tertiary);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 72px;
+      }
+      .sidebar-item span {
+        display: none;
+      }
+      .search-container {
+        margin: 0 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .search-container {
+        max-width: 300px;
+        margin: 0 10px;
+      }
+      .ops-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      Deposito
+      <span>:)</span>
+    </div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Buscar OP...">
+      <button class="search-btn" onclick="buscarOPGlobal()">Buscar</button>
+    </div>
+    <div class="user-menu">
+      <button class="icon-btn" onclick="salvarDados()" title="Salvar alterações">Salvar</button>
+      <button class="theme-toggle" onclick="toggleTema()" title="Alternar tema">☾</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav class="sidebar">
+      <div class="sidebar-item active" onclick="mostrarPagina('home')">
+        <span>Início</span>
+      </div>
+      <div class="sidebar-item" onclick="mostrarPagina('adicionar')">
+        <span>Adicionar OP</span>
+      </div>
+      <div class="sidebar-item" onclick="mostrarPagina('deposito')">
+        <span>Depósito</span>
+      </div>
+      <div class="sidebar-item" onclick="mostrarPagina('consulta')">
+        <span>Consultar</span>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-item" onclick="exportarDados()">
+        <span>Exportar</span>
+      </div>
+      <div class="sidebar-item" onclick="importarDados()">
+        <span>Importar</span>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <!-- HOME -->
+      <div id="home" class="page active">
+        <h1>Bem-vindo ao Deposito</h1>
+        
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="card">
+          <h2>Ações Rápidas</h2>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn" onclick="mostrarPagina('adicionar')">Nova OP</button>
+            <button class="btn btn-secondary" onclick="mostrarPagina('deposito')">Ver Depósito</button>
+            <button class="btn btn-secondary" onclick="mostrarPagina('consulta')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADICIONAR -->
+      <div id="adicionar" class="page">
+        <h1>Adicionar Nova OP</h1>
+        <div class="card">
+          <div class="form-group">
+            <label>Número da OP</label>
+            <input type="text" id="novaOp" placeholder="Ex: 643212" maxlength="6">
+          </div>
+          <div class="form-group">
+            <label>Corredor</label>
+            <select id="novoCorredor"></select>
+          </div>
+          <button class="btn" onclick="adicionarOP()">Adicionar OP</button>
+          <button class="btn btn-secondary" onclick="limparForm()">Limpar</button>
+          <div id="msgAdd"></div>
+        </div>
+      </div>
+
+      <!-- DEPÓSITO -->
+      <div id="deposito" class="page">
+        <h1>Depósito de OPs</h1>
+        <div class="corredores-grid" id="corredoresGrid"></div>
+        <div id="opsView"></div>
+      </div>
+
+      <!-- CONSULTA -->
+      <div id="consulta" class="page">
+        <h1>Consultar OP</h1>
+        <div class="card">
+          <div class="form-group">
+            <label>Digite o número da OP</label>
+            <input type="text" id="consultaInput" placeholder="643212">
+          </div>
+          <button class="btn" onclick="consultarOP()">Consultar</button>
+          <div id="resultadoConsulta"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <input type="file" id="fileInput" style="display: none" accept=".json" onchange="carregarArquivo(event)">
+
+  <script>
+    let deposito = {
+      "Corredor 1": [],
+      "Corredor 2": [],
+      "Corredor 3": [],
+      "Corredor 4": [],
+      "Corredor 5": [],
+      "Corredor 6": [],
+      "Corredor 7": [],
+      "Corredor 8": []
+    };
+
+    let corredorSelecionado = null;
+
+    function carregarDados() {
+      const saved = localStorage.getItem('deposito_ops');
+      if (saved) {
+        try {
+          deposito = JSON.parse(saved);
+        } catch (e) {
+          console.error('Erro ao carregar depósito:', e);
+        }
+      }
+      
+      const tema = localStorage.getItem('tema') || 'dark';
+      aplicarTema(tema);
+    }
+
+    function salvarDados() {
+      localStorage.setItem('deposito_ops', JSON.stringify(deposito));
+      mostrarAlerta('Alterações salvas com sucesso!', 'success');
+    }
+
+    function autoSalvar() {
+      localStorage.setItem('deposito_ops', JSON.stringify(deposito));
+    }
+
+    function toggleTema() {
+      const temaAtual = document.documentElement.getAttribute('data-theme') || 'dark';
+      const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+      aplicarTema(novoTema);
+      localStorage.setItem('tema', novoTema);
+    }
+
+    function aplicarTema(tema) {
+      document.documentElement.setAttribute('data-theme', tema);
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = '☾';
+    }
+
+    function mostrarPagina(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      
+      const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
+      const index = ['home', 'adicionar', 'deposito', 'consulta'].indexOf(id);
+      if (index >= 0 && sidebarItems[index]) {
+        sidebarItems[index].classList.add('active');
+      }
+      
+      if (id === 'deposito') renderCorredores();
+      if (id === 'home') renderStats();
+    }
+
+    function renderStats() {
+      const grid = document.getElementById('statsGrid');
+      const totalOps = Object.values(deposito).reduce((acc, ops) => acc + ops.length, 0);
+      const totalCorredores = Object.keys(deposito).length;
+      
+      const corredorMaisOps = Object.entries(deposito).reduce((max, [nome, ops]) => 
+        ops.length > (max.ops || 0) ? { nome, ops: ops.length } : max, {});
+      
+      grid.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-number">${totalOps}</div>
+          <div class="stat-label">Total de OPs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${totalCorredores}</div>
+          <div class="stat-label">Corredores</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${totalOps > 0 ? Math.round(totalOps / totalCorredores) : 0}</div>
+          <div class="stat-label">Média por Corredor</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${corredorMaisOps.ops || 0}</div>
+          <div class="stat-label">${corredorMaisOps.nome || 'Nenhum'} (Maior)</div>
+        </div>
+      `;
+    }
+
+    function renderCorredores() {
+      const grid = document.getElementById('corredoresGrid');
+      grid.innerHTML = '';
+      
+      for (const corredor in deposito) {
+        const card = document.createElement('div');
+        card.className = 'corredor-card' + (corredor === corredorSelecionado ? ' selected' : '');
+        card.onclick = () => selecionarCorredor(corredor);
+        card.innerHTML = `
+          <h3>${corredor}</h3>
+          <div class="count">${deposito[corredor].length} OPs</div>
+        `;
+        grid.appendChild(card);
+      }
+      
+      if (corredorSelecionado) renderOPs(corredorSelecionado);
+    }
+
+    function selecionarCorredor(corredor) {
+      corredorSelecionado = corredor;
+      renderCorredores();
+    }
+
+    function renderOPs(corredor) {
+      const view = document.getElementById('opsView');
+      
+      if (deposito[corredor].length === 0) {
+        view.innerHTML = `<div class="card"><h2>${corredor}</h2><p style="color: var(--text-secondary);">Nenhuma OP cadastrada neste corredor.</p></div>`;
+        return;
+      }
+      
+      view.innerHTML = `<div class="card"><h2>${corredor}</h2><div class="ops-container" id="opsContainer"></div></div>`;
+      
+      const container = document.getElementById('opsContainer');
+      deposito[corredor].forEach(op => {
+        const card = document.createElement('div');
+        card.className = 'op-card';
+        card.innerHTML = `
+          <div class="op-info">
+            <div class="op-numero">${op}</div>
+            <div class="op-local">${corredor}</div>
+          </div>
+          <div class="op-actions">
+            <button class="btn btn-small btn-danger" onclick="removerOP('${op}', '${corredor}')">Remover</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function buscarOP(op) {
+      for (const corredor in deposito) {
+        if (deposito[corredor].includes(op)) {
+          return { corredor, op };
+        }
+      }
+      return null;
+    }
+
+    function adicionarOP() {
+      const op = document.getElementById('novaOp').value.trim();
+      const corredor = document.getElementById('novoCorredor').value;
+      const msg = document.getElementById('msgAdd');
+      
+      if (!op || !corredor) {
+        msg.innerHTML = '<div class="alert alert-error">Preencha todos os campos</div>';
+        return;
+      }
+      
+      if (!/^\d+$/.test(op)) {
+        msg.innerHTML = '<div class="alert alert-error">Digite apenas números na OP</div>';
+        return;
+      }
+      
+      if (op.length !== 6) {
+        msg.innerHTML = '<div class="alert alert-error">A OP deve ter exatamente 6 números</div>';
+        return;
+      }
+      
+      const existe = buscarOP(op);
+      if (existe) {
+        msg.innerHTML = `<div class="alert alert-error">OP já existe em ${existe.corredor}</div>`;
+        return;
+      }
+      
+      deposito[corredor].push(op);
+      autoSalvar();
+      msg.innerHTML = '<div class="alert alert-success">OP adicionada com sucesso!</div>';
+      document.getElementById('novaOp').value = '';
+      setTimeout(() => msg.innerHTML = '', 3000);
+    }
+
+    function removerOP(op, corredor) {
+      if (!confirm(`Remover OP ${op}?`)) return;
+      
+      const index = deposito[corredor].indexOf(op);
+      if (index > -1) {
+        deposito[corredor].splice(index, 1);
+        autoSalvar();
+        renderOPs(corredor);
+        mostrarAlerta('OP removida com sucesso', 'success');
+      }
+    }
+
+    function consultarOP() {
+      const op = document.getElementById('consultaInput').value.trim();
+      const result = document.getElementById('resultadoConsulta');
+      
+      if (!op) {
+        result.innerHTML = '<div class="alert alert-error">Digite uma OP</div>';
+        return;
+      }
+      
+      const local = buscarOP(op);
+      
+      result.innerHTML = `
+        <div class="card" style="margin-top: 20px;">
+          <h2>Resultado da Consulta</h2>
+          <div class="op-card">
+            <div class="op-info">
+              <div class="op-numero">${op}</div>
+              <div class="op-local">${local ? local.corredor : 'Não encontrado no depósito'}</div>
+            </div>
+            ${local ? `<button class="btn btn-small" onclick="irParaCorredor('${local.corredor}')">Ver Corredor</button>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function irParaCorredor(corredor) {
+      mostrarPagina('deposito');
+      corredorSelecionado = corredor;
+      renderCorredores();
+    }
+
+    function buscarOPGlobal() {
+      const termo = document.getElementById('searchInput').value.trim();
+      if (!termo) return;
+      
+      const resultado = buscarOP(termo);
+      if (resultado) {
+        mostrarPagina('deposito');
+        corredorSelecionado = resultado.corredor;
+        renderCorredores();
+        mostrarAlerta('OP encontrada!', 'success');
+      } else {
+        mostrarAlerta('OP não encontrada', 'error');
+      }
+    }
+
+    function mostrarAlerta(msg, tipo) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${tipo}`;
+      alert.textContent = msg;
+      alert.style.position = 'fixed';
+      alert.style.top = '80px';
+      alert.style.right = '24px';
+      alert.style.zIndex = '9999';
+      document.body.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+    }
+
+    function limparForm() {
+      document.getElementById('novaOp').value = '';
+    }
+
+    function exportarDados() {
+      const data = {
+        deposito: deposito,
+        exportadoEm: new Date().toLocaleString('pt-BR')
+      };
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `deposito_backup_${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      mostrarAlerta('Dados exportados!', 'success');
+    }
+
+    function importarDados() {
+      document.getElementById('fileInput').click();
+    }
+
+    function carregarArquivo(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          
+          if (data.deposito) {
+            deposito = data.deposito;
+          }
+          
+          autoSalvar();
+          renderCorredores();
+          renderStats();
+          mostrarAlerta('Dados importados com sucesso!', 'success');
+        } catch (err) {
+          mostrarAlerta('Erro ao importar arquivo', 'error');
+          console.error('Erro:', err);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') buscarOPGlobal();
+    });
+
+    document.getElementById('consultaInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') consultarOP();
+    });
+
+    const selectCorredor = document.getElementById('novoCorredor');
+    for (const corredor in deposito) {
+      const opt = document.createElement('option');
+      opt.value = corredor;
+      opt.textContent = corredor;
+      selectCorredor.appendChild(opt);
+    }
+
+    carregarDados();
+    renderStats();
+  </script>
+</body>
+</html>
