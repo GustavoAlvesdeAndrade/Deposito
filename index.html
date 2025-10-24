@@ -3,32 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deposito de OPs</title>
+  <title>• Depósito Texpa •</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-primary: #0f0f0f;
-      --bg-secondary: #212121;
-      --bg-tertiary: #272727;
-      --bg-hover: #3f3f3f;
-      --border-color: #303030;
-      --text-primary: #f1f1f1;
-      --text-secondary: #aaa;
-      --accent: #3ea6ff;
-      --accent-hover: #4db8ff;
-      --danger: #f44336;
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-2: #141414;
+      --surface-3: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #888888;
+      --text-tertiary: #666666;
+      --accent: #ffffff;
+      --border: #222222;
     }
 
     [data-theme="light"] {
-      --bg-primary: #f5f5f5;
-      --bg-secondary: #ffffff;
-      --bg-tertiary: #fafafa;
-      --bg-hover: #e0e0e0;
-      --border-color: #e0e0e0;
-      --text-primary: #212121;
-      --text-secondary: #666;
-      --accent: #1976d2;
-      --accent-hover: #2196f3;
-      --danger: #d32f2f;
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f5f5f5;
+      --surface-3: #eeeeee;
+      --text: #000000;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #000000;
+      --border: #e0e0e0;
     }
 
     * {
@@ -38,542 +37,1548 @@
     }
 
     body {
-      font-family: "Roboto", "Arial", sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      transition: background 0.3s, color 0.3s;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-x: hidden;
     }
 
+    /* Header */
     header {
-      background: var(--bg-secondary);
-      padding: 0 16px;
-      height: 56px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
+      padding: 0 40px;
       z-index: 1000;
-      border-bottom: 1px solid var(--border-color);
-      transition: background 0.3s, border-color 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .logo span {
-      color: var(--text-secondary);
-      font-size: 12px;
-      background: var(--bg-hover);
-      padding: 2px 6px;
-      border-radius: 3px;
-      margin-left: 6px;
-    }
-
-    .search-container {
-      flex: 1;
-      max-width: 600px;
-      margin: 0 40px;
-      display: flex;
-      gap: 0;
-    }
-
-    .search-container input {
-      flex: 1;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-color);
-      border-right: none;
-      padding: 10px 16px;
-      color: var(--text-primary);
       font-size: 16px;
-      outline: none;
-      border-radius: 40px 0 0 40px;
-      transition: all 0.3s;
-    }
-
-    .search-container input:focus {
-      border-color: var(--accent);
-    }
-
-    .search-btn {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      padding: 0 25px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: var(--text);
       cursor: pointer;
-      border-radius: 0 40px 40px 0;
-      color: var(--text-primary);
       transition: all 0.3s;
     }
 
-    .search-btn:hover {
-      background: var(--bg-hover);
+    .logo:hover {
+      opacity: 0.7;
     }
 
-    .user-menu {
+    .logo strong {
+      font-weight: 900;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-item {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      background: var(--surface-3);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .header-actions {
       display: flex;
       gap: 12px;
       align-items: center;
     }
 
     .icon-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      font-size: 14px;
-      cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 18px;
-      transition: background 0.2s;
-    }
-
-    .icon-btn:hover {
-      background: var(--bg-hover);
-    }
-
-    .theme-toggle {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      background: var(--bg-hover);
-      border: none;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      transition: all 0.3s;
+      font-size: 16px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .theme-toggle:hover {
-      transform: rotate(180deg);
+    .icon-btn:hover {
+      background: var(--surface-3);
+      transform: translateY(-2px);
     }
 
-    .container {
-      display: flex;
-      padding-top: 0;
+    .theme-toggle {
+      position: relative;
     }
 
-    .sidebar {
-      width: 240px;
-      background: var(--bg-secondary);
-      padding: 12px 0;
-      height: calc(100vh - 56px);
-      position: sticky;
-      top: 56px;
-      overflow-y: auto;
-      border-right: 1px solid var(--border-color);
-      transition: all 0.3s;
+    .theme-toggle::before {
+      content: '●';
+      position: absolute;
+      font-size: 8px;
+      top: 6px;
+      right: 6px;
+      color: var(--accent);
     }
 
-    .sidebar::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: var(--text-secondary);
-      border-radius: 4px;
-    }
-
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 10px 24px;
-      color: var(--text-primary);
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-
-    .sidebar-item:hover {
-      background: var(--bg-hover);
-    }
-
-    .sidebar-item.active {
-      background: var(--bg-hover);
-      font-weight: 500;
-    }
-
-    .sidebar-divider {
-      border-top: 1px solid var(--border-color);
-      margin: 12px 0;
-    }
-
+    /* Main Content */
     .main-content {
-      flex: 1;
-      padding: 24px;
-      max-width: 1800px;
+      margin-top: 70px;
+      padding: 60px 40px;
+      max-width: 1600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .page {
       display: none;
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .page.active {
       display: block;
     }
 
-    h1 {
-      font-size: 24px;
-      margin-bottom: 24px;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 60px;
+    }
+
+    .page-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
       font-weight: 400;
+      letter-spacing: 0.5px;
     }
 
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .stat-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+
+    .stat-value {
+      font-size: 56px;
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Card */
     .card {
-      background: var(--bg-secondary);
-      border-radius: 12px;
-      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
       margin-bottom: 24px;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s;
     }
 
-    .card h2 {
-      font-size: 18px;
-      margin-bottom: 20px;
-      font-weight: 500;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-secondary);
+    }
+
+    .form-input,
+    .form-select {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--accent);
+      background: var(--surface-3);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 14px 28px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.8;
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+      border-color: #dc2626;
+    }
+
+    .btn-danger:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 11px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* Corredores Grid */
     .corredores-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
     .corredor-card {
-      background: var(--bg-tertiary);
-      padding: 16px;
-      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
       cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .corredor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .corredor-card.temporario {
+      border-color: #f59e0b;
+    }
+
+    .corredor-card.temporario::before {
+      background: #f59e0b;
     }
 
     .corredor-card:hover {
-      background: var(--bg-hover);
-      border-color: var(--text-secondary);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .corredor-card:hover::before {
+      transform: scaleX(1);
     }
 
     .corredor-card.selected {
       border-color: var(--accent);
-      background: var(--bg-hover);
+      transform: translateY(-4px);
     }
 
-    .corredor-card h3 {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 8px;
+    .corredor-card.selected::before {
+      transform: scaleX(1);
     }
 
-    .corredor-card .count {
-      color: var(--text-secondary);
-      font-size: 13px;
+    .corredor-nome {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
     }
 
-    .ops-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 16px;
-    }
-
-    .op-card {
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 16px;
+    .corredor-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.2s;
-      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .op-card:hover {
-      background: var(--bg-hover);
+    .corredor-count {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -1px;
     }
 
-    .op-info {
+    /* OPs List */
+    .ops-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .op-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .op-item:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .op-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .op-content {
       flex: 1;
     }
 
     .op-numero {
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
       font-family: 'Courier New', monospace;
-      margin-bottom: 6px;
     }
 
     .op-local {
-      font-size: 12px;
       color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .op-detalhes {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .op-detalhe-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .op-detalhe-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+
+    .op-detalhe-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      font-family: 'Courier New', monospace;
     }
 
     .op-actions {
       display: flex;
       gap: 8px;
+      flex-shrink: 0;
     }
 
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 18px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn:hover {
-      background: var(--accent-hover);
-    }
-
-    .btn-secondary {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-hover);
-    }
-
-    .btn-small {
+    /* Badge */
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       padding: 6px 12px;
-      font-size: 12px;
-      border-radius: 4px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
     }
 
-    .btn-danger {
-      background: transparent;
-      color: var(--danger);
-      border: 1px solid var(--danger);
+    .badge-parcial {
+      background: #f59e0b;
+      color: #000;
+      border-color: #f59e0b;
     }
 
-    .btn-danger:hover {
-      background: var(--danger);
-      color: #fff;
+    .badge-pendente {
+      background: #dc2626;
+      color: white;
+      border-color: #dc2626;
+      animation: pulse 2s infinite;
     }
 
-    .form-group {
-      margin-bottom: 20px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .empty-icon {
+      font-size: 72px;
+      margin-bottom: 24px;
+      opacity: 0.6;
+      filter: grayscale(0.3);
+    }
+
+    .empty-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .empty-text {
       font-size: 14px;
       color: var(--text-secondary);
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
       max-width: 400px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-color);
-      padding: 12px 16px;
-      border-radius: 8px;
-      color: var(--text-primary);
-      font-size: 14px;
-      outline: none;
-      transition: all 0.3s;
+      margin: 0 auto;
+      line-height: 1.6;
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
-      border-color: var(--accent);
-    }
-
+    /* Alert */
     .alert {
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 600;
     }
 
     .alert-success {
-      background: rgba(76, 175, 80, 0.1);
-      border: 1px solid #4caf50;
-      color: #4caf50;
+      background: #10b981;
+      color: white;
     }
 
     .alert-error {
-      background: rgba(244, 67, 54, 0.1);
-      border: 1px solid #f44336;
-      color: #f44336;
+      background: #dc2626;
+      color: white;
     }
 
-    .alert-info {
-      background: rgba(62, 166, 255, 0.1);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: var(--bg-tertiary);
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       padding: 20px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s;
     }
 
-    .stat-number {
-      font-size: 32px;
-      font-weight: 500;
-      color: var(--accent);
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    /* Amostras */
+    .marca-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .marca-tab {
+      padding: 12px 24px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    .marca-tab:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .marca-tab.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .galeria-amostras {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .amostra-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .amostra-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .amostra-foto {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      background: var(--surface-2);
+    }
+
+    .amostra-info {
+      padding: 24px;
+    }
+
+    .amostra-ref {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
 
-    .stat-label {
+    .amostra-numero {
+      font-family: 'Courier New', monospace;
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .amostra-marca {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+
+    .amostra-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      display: block;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    /* Pendentes Input Group */
+    .pendentes-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pendente-input-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pendente-input-row .form-input {
+      flex: 1;
+    }
+
+    .btn-add-pendente {
+      background: var(--surface-3);
+      color: var(--text);
+      border: 1px dashed var(--border);
+      width: 100%;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-add-pendente:hover {
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    /* Modal Actions */
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    /* Consulta Page Improvements */
+    .consulta-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .search-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .search-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--text-secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .search-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    }
+
+    .search-box:hover::before {
+      transform: scaleX(1);
+    }
+
+    .search-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--surface-2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 24px;
+      border: 1px solid var(--border);
+    }
+
+    .resultado-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 32px 0 24px;
+      padding: 20px;
+      background: var(--surface-2);
+      border-radius: 16px;
+      border-left: 4px solid var(--accent);
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .resultado-header-icon {
+      font-size: 32px;
+      animation: bounceIn 0.6s ease-out 0.2s backwards;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .resultado-header-text h3 {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .resultado-header-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Amostras Gallery Improvements */
+    .amostras-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .amostras-count {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .amostra-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      animation: fadeInUp 0.5s ease-out backwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .amostra-card:nth-child(1) { animation-delay: 0.05s; }
+    .amostra-card:nth-child(2) { animation-delay: 0.1s; }
+    .amostra-card:nth-child(3) { animation-delay: 0.15s; }
+    .amostra-card:nth-child(4) { animation-delay: 0.2s; }
+    .amostra-card:nth-child(5) { animation-delay: 0.25s; }
+    .amostra-card:nth-child(6) { animation-delay: 0.3s; }
+
+    .amostra-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .amostra-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .amostra-card:hover::before {
+      opacity: 1;
+    }
+
+    .amostra-foto {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      background: var(--surface-2);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .amostra-card:hover .amostra-foto {
+      transform: scale(1.05);
+    }
+
+    .amostra-info {
+      padding: 28px;
+      background: var(--surface);
+    }
+
+    .amostra-ref {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .amostra-numero {
+      font-family: 'Courier New', monospace;
       color: var(--text-secondary);
       font-size: 14px;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
-    @media (max-width: 1024px) {
-      .sidebar {
-        width: 72px;
-      }
-      .sidebar-item span {
-        display: none;
-      }
-      .search-container {
-        margin: 0 20px;
-      }
+    .amostra-marca {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 6px 12px;
+      background: var(--surface-2);
+      border-radius: 8px;
     }
 
+    .amostra-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .amostra-actions .btn {
+      flex: 1;
+    }
+
+    /* Form Upload Section */
+    .form-upload-section {
+      background: var(--surface-2);
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .form-upload-section:hover {
+      border-color: var(--accent);
+      background: var(--surface-3);
+    }
+
+    .form-upload-section.has-file {
+      border-style: solid;
+      border-color: var(--accent);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+
+    .upload-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .upload-hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Grid Layouts */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* Separator */
+    .section-separator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 48px 0;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .sidebar {
+      header {
+        padding: 0 20px;
+        height: 60px;
+      }
+
+      .logo {
+        font-size: 14px;
+      }
+
+      .nav-menu {
         display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 20px;
+        gap: 12px;
       }
-      .search-container {
-        max-width: 300px;
-        margin: 0 10px;
+
+      .nav-menu.active {
+        display: flex;
       }
-      .ops-container {
+
+      .nav-item {
+        width: 100%;
+        text-align: center;
+      }
+
+      .header-actions {
+        gap: 8px;
+      }
+
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+
+      .main-content {
+        margin-top: 60px;
+        padding: 40px 20px;
+      }
+
+      .page-title {
+        font-size: 32px;
+        letter-spacing: -1px;
+      }
+
+      .page-subtitle {
+        font-size: 14px;
+      }
+
+      .stats-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        padding: 24px;
+      }
+
+      .stat-value {
+        font-size: 40px;
+      }
+
+      .card {
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .card-title {
+        font-size: 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .corredores-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .op-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .op-actions {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .op-actions .btn {
+        width: 100%;
+      }
+
+      .op-detalhes {
+        width: 100%;
+      }
+
+      .op-detalhe-item {
+        min-width: 100%;
+      }
+
+      .modal-content {
+        padding: 32px 24px;
+        max-height: 85vh;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-actions .btn {
+        width: 100%;
+      }
+
+      .galeria-amostras {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .marca-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .marca-tab {
+        flex-shrink: 0;
+      }
+
+      .form-grid-2,
+      .form-grid-3 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .search-box {
+        padding: 24px;
+      }
+
+      .amostra-foto {
+        height: 240px;
+      }
+
+      .amostra-info {
+        padding: 20px;
+      }
+
+      .form-upload-section {
+        padding: 24px;
+      }
+
+      .upload-icon {
+        font-size: 36px;
+      }
+
+      .search-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 24px;
+      }
+
+      .stat-value {
+        font-size: 32px;
+      }
+
+      .corredor-count {
+        font-size: 24px;
+      }
+
+      .pendente-input-row {
+        flex-direction: column;
+      }
+
+      .btn-icon {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">
-      Deposito
-      <span>:)</span>
-    </div>
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Buscar OP...">
-      <button class="search-btn" onclick="buscarOPGlobal()">Buscar</button>
-    </div>
-    <div class="user-menu">
-      <button class="icon-btn" onclick="salvarDados()" title="Salvar alterações">Salvar</button>
-      <button class="theme-toggle" onclick="toggleTema()" title="Alternar tema">☾</button>
+    <div class="logo" onclick="showPage('home')"><strong>DEPÓSITO</strong> TEXPA</div>
+    <nav class="nav-menu" id="navMenu">
+      <div class="nav-item active" data-page="home">Home</div>
+      <div class="nav-item" data-page="adicionar">Adicionar</div>
+      <div class="nav-item" data-page="deposito">Depósito</div>
+      <div class="nav-item" data-page="consulta">Consultar</div>
+      <div class="nav-item" data-page="amostras">Amostras</div>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="exportarDados()" title="Exportar">E</button>
+      <button class="icon-btn" onclick="importarDados()" title="Importar">I</button>
+      <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Tema">◐</button>
     </div>
   </header>
 
-  <div class="container">
-    <nav class="sidebar">
-      <div class="sidebar-item active" onclick="mostrarPagina('home')">
-        <span>Início</span>
+  <main class="main-content">
+    <!-- Home -->
+    <div class="page active" id="home">
+      <div class="page-header">
+        <h1 class="page-title">Sistema do Deposito</h1>
+        <p class="page-subtitle">Depósito e controle de amostras</p>
       </div>
-      <div class="sidebar-item" onclick="mostrarPagina('adicionar')">
-        <span>Adicionar OP</span>
-      </div>
-      <div class="sidebar-item" onclick="mostrarPagina('deposito')">
-        <span>Depósito</span>
-      </div>
-      <div class="sidebar-item" onclick="mostrarPagina('consulta')">
-        <span>Consultar</span>
-      </div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-item" onclick="exportarDados()">
-        <span>Exportar</span>
-      </div>
-      <div class="sidebar-item" onclick="importarDados()">
-        <span>Importar</span>
-      </div>
-    </nav>
+      <div class="stats-grid" id="statsContainer"></div>
+    </div>
 
-    <main class="main-content">
-      <!-- HOME -->
-      <div id="home" class="page active">
-        <h1>Bem-vindo ao Deposito</h1>
-        
-        <div class="stats-grid" id="statsGrid"></div>
+    <!-- Adicionar OP -->
+    <div class="page" id="adicionar">
+      <div class="page-header">
+        <h1 class="page-title">Adicionar OP</h1>
+        <p class="page-subtitle">Cadastre novas ordens de produção</p>
+      </div>
 
-        <div class="card">
-          <h2>Ações Rápidas</h2>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button class="btn" onclick="mostrarPagina('adicionar')">Nova OP</button>
-            <button class="btn btn-secondary" onclick="mostrarPagina('deposito')">Ver Depósito</button>
-            <button class="btn btn-secondary" onclick="mostrarPagina('consulta')">Consultar</button>
+      <div class="card">
+        <h2 class="card-title">Nova OP</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Número da OP</label>
+            <input type="text" id="novaOp" class="form-input" placeholder="Ex: 643212" maxlength="6" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Corredor</label>
+            <select id="novoCorredor" class="form-select" required>
+              <option value="">Selecione</option>
+              <option value="Temporário">Temporário</option>
+            </select>
           </div>
         </div>
-      </div>
 
-      <!-- ADICIONAR -->
-      <div id="adicionar" class="page">
-        <h1>Adicionar Nova OP</h1>
-        <div class="card">
+        <div class="form-row">
           <div class="form-group">
-            <label>Número da OP</label>
-            <input type="text" id="novaOp" placeholder="Ex: 643212" maxlength="6">
+            <label class="form-label">Referência</label>
+            <input type="text" id="referencia" class="form-input" placeholder="Ref 83732" maxlength="5">
           </div>
           <div class="form-group">
-            <label>Corredor</label>
-            <select id="novoCorredor"></select>
+            <label class="form-label">Cor</label>
+            <select id="cor" class="form-select">
+              <option value="">Selecione</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+            </select>
           </div>
-          <button class="btn" onclick="adicionarOP()">Adicionar OP</button>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Quantidade</label>
+            <input type="number" id="qtdCaixas" class="form-input" placeholder="10" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select id="tipoOP" class="form-select">
+              <option value="completa">Completa</option>
+              <option value="parcial">Parcial</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">OPs Pendentes</label>
+          <div class="pendentes-group" id="pendentesList">
+            <div class="pendente-input-row">
+              <input type="text" class="form-input pendente-input" placeholder="Ex: 643213" maxlength="6">
+              <button type="button" class="btn btn-icon btn-danger" onclick="removerPendente(this)" title="Remover">×</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-add-pendente" onclick="adicionarCampoPendente()">
+            <span>+</span> Adicionar outra OP pendente
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <button class="btn btn-primary" onclick="adicionarOP()">Adicionar OP</button>
           <button class="btn btn-secondary" onclick="limparForm()">Limpar</button>
-          <div id="msgAdd"></div>
         </div>
+        <div id="msg"></div>
+      </div>
+    </div>
+
+    <!-- Depósito -->
+    <div class="page" id="deposito">
+      <div class="page-header">
+        <h1 class="page-title">Depósito</h1>
+        <p class="page-subtitle">Visualize e gerencie os corredores</p>
+      </div>
+      <div class="corredores-grid" id="corredoresGrid"></div>
+      <div id="opsView"></div>
+    </div>
+
+    <!-- Consulta -->
+    <div class="page" id="consulta">
+      <div class="page-header">
+        <h1 class="page-title">Consultar</h1>
+        <p class="page-subtitle">Busque OPs no sistema</p>
       </div>
 
-      <!-- DEPÓSITO -->
-      <div id="deposito" class="page">
-        <h1>Depósito de OPs</h1>
-        <div class="corredores-grid" id="corredoresGrid"></div>
-        <div id="opsView"></div>
-      </div>
-
-      <!-- CONSULTA -->
-      <div id="consulta" class="page">
-        <h1>Consultar OP</h1>
-        <div class="card">
+      <div class="consulta-container">
+        <div class="search-box">
+          <div class="search-icon">⚫</div>
+          <h2 class="card-title" style="text-align: center; margin-bottom: 32px;">Buscar OPs</h2>
+          
           <div class="form-group">
-            <label>Digite o número da OP</label>
-            <input type="text" id="consultaInput" placeholder="643212">
+            <label class="form-label">Tipo de Busca</label>
+            <select id="tipoBusca" class="form-select" onchange="mudarTipoBusca()">
+              <option value="op">Buscar por OP</option>
+              <option value="referencia">Buscar por Referência</option>
+              <option value="pendente">Buscar por OP Pendente</option>
+            </select>
           </div>
-          <button class="btn" onclick="consultarOP()">Consultar</button>
-          <div id="resultadoConsulta"></div>
+
+          <div class="form-group" id="campoBuscaOP">
+            <input type="text" id="consultaInput" class="form-input" placeholder=" Op 643212" maxlength="6">
+          </div>
+
+          <div class="form-group" id="campoBuscaRef" style="display: none;">
+            <input type="text" id="consultaRefInput" class="form-input" placeholder="Ref 83732" maxlength="6">
+          </div>
+
+          <div class="form-group" id="campoBuscaPendente" style="display: none;">
+            <input type="text" id="consultaPendenteInput" class="form-input" placeholder="OpPendente 643213" maxlength="6">
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%; margin-top: 24px;" onclick="realizarConsulta()">Buscar Agora</button>
         </div>
+
+        <div id="resultadoConsulta"></div>
       </div>
-    </main>
+    </div>
+
+    <!-- Amostras -->
+    <div class="page" id="amostras">
+      <div class="page-header">
+        <h1 class="page-title">Amostras</h1>
+        <p class="page-subtitle">Catálogo de referências</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Cadastrar Nova Amostra</h2>
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Marca</label>
+            <select id="amostraMarca" class="form-select" required>
+              <option value="">Selecione a marca</option>
+              <option value="INFANTI">INFANTI</option>
+              <option value="JOHNNY FOX">JOHNNY FOX</option>
+              <option value="KUKIÊ">KUKIÊ</option>
+              <option value="LILIMOON">LILIMOON</option>
+              <option value="LUC.BOO">LUC.BOO</option>
+              <option value="VIC&VICKY">VIC&VICKY</option>
+              <option value="LINZZI">LINZZI</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Referência</label>
+            <input type="text" id="amostraRef" class="form-input" placeholder="Ref 84321" maxlength="15" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Informação</label>
+          <input type="text" id="amostraNumero" class="form-input" placeholder="Informação adicional" maxlength="10" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Foto da Amostra</label>
+          <div class="form-upload-section" id="uploadSection" onclick="document.getElementById('amostraFoto').click()">
+            <div class="upload-icon"></div>
+            <div class="upload-text">Clique para selecionar uma foto</div>
+            <div class="upload-hint">JPG, PNG ou WEBP - Máx 5MB</div>
+          </div>
+          <input type="file" id="amostraFoto" class="form-input" accept="image/*" required style="display: none;">
+          <img id="amostraFotoPreview" class="preview-image" style="display: none; margin: 20px auto; display: block;">
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 32px;">
+          <button class="btn btn-primary" style="flex: 1;" onclick="adicionarAmostra()">Cadastrar Amostra</button>
+          <button class="btn btn-secondary" onclick="limparFormAmostra()">Limpar</button>
+        </div>
+        <div id="msgAmostra"></div>
+      </div>
+
+      <div class="section-separator"></div>
+
+      <div class="card">
+        <div class="amostras-header">
+          <h2 class="card-title" style="margin: 0;">Galeria de Amostras</h2>
+          <div class="amostras-count" id="amostrasCount">0 amostras cadastradas</div>
+        </div>
+        <div class="marca-tabs" id="marcaTabs"></div>
+        <div class="galeria-amostras" id="galeriaAmostras"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal" id="modalInfo">
+    <div class="modal-content" id="modalBody"></div>
   </div>
 
-  <input type="file" id="fileInput" style="display: none" accept=".json" onchange="carregarArquivo(event)">
+  <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="carregarArquivo(event)">
 
   <script>
+    // Variáveis globais
     let deposito = {
+      "Temporário": [],
       "Corredor 1": [],
       "Corredor 2": [],
       "Corredor 3": [],
@@ -581,270 +1586,943 @@
       "Corredor 5": [],
       "Corredor 6": [],
       "Corredor 7": [],
-      "Corredor 8": []
+      "Corredor 8": [],
+      "Corredor 9": []
     };
 
+    let opsParciais = {};
+    let opsPendentes = {};
+    let opsDetalhes = {};
+    let amostras = [];
     let corredorSelecionado = null;
+    let marcaSelecionada = null;
+    let proximoIdAmostra = 1;
 
-    function carregarDados() {
-      const saved = localStorage.getItem('deposito_ops');
-      if (saved) {
-        try {
-          deposito = JSON.parse(saved);
-        } catch (e) {
-          console.error('Erro ao carregar depósito:', e);
+    const MARCAS = [
+      "INFANTI",
+      "JOHNNY FOX",
+      "KUKIÊ",
+      "LILIMOON",
+      "LUC.BOO",
+      "VIC",
+      "VIC&VICKY",
+      "LINZZI"
+    ];
+
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', current === 'light' ? '' : 'light');
+      localStorage.setItem('tema', current === 'light' ? 'dark' : 'light');
+    }
+
+
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      const navItem = document.querySelector(`[data-page="${pageId}"]`);
+      if (navItem) navItem.classList.add('active');
+      document.getElementById('navMenu').classList.remove('active');
+
+      if (pageId === 'deposito') renderCorredores();
+      if (pageId === 'home') renderStats();
+      if (pageId === 'amostras') renderAmostras();
+    }
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => showPage(item.dataset.page));
+    });
+
+
+    function adicionarCampoPendente() {
+      const container = document.getElementById('pendentesList');
+      const newRow = document.createElement('div');
+      newRow.className = 'pendente-input-row';
+      newRow.innerHTML = `
+        <input type="text" class="form-input pendente-input" placeholder="Ex: 643213" maxlength="6">
+        <button type="button" class="btn btn-icon btn-danger" onclick="removerPendente(this)" title="Remover">×</button>
+      `;
+      container.appendChild(newRow);
+    }
+
+    function removerPendente(btn) {
+      const container = document.getElementById('pendentesList');
+      if (container.children.length > 1) {
+        btn.parentElement.remove();
+      }
+    }
+
+
+    function adicionarOP() {
+      const op = document.getElementById('novaOp').value.trim();
+      const corredor = document.getElementById('novoCorredor').value;
+      const ref = document.getElementById('referencia').value.trim();
+      const cor = document.getElementById('cor').value;
+      const qtd = document.getElementById('qtdCaixas').value.trim();
+      const tipo = document.getElementById('tipoOP').value;
+      const msg = document.getElementById('msg');
+
+      if (!op || !corredor) {
+        msg.innerHTML = '<div class="alert alert-error">Preencha os campos obrigatórios</div>';
+        setTimeout(() => msg.innerHTML = '', 3000);
+        return;
+      }
+
+
+      for (const c in deposito) {
+        if (deposito[c].includes(op)) {
+          msg.innerHTML = '<div class="alert alert-error">OP já existe no sistema</div>';
+          setTimeout(() => msg.innerHTML = '', 3000);
+          return;
         }
       }
+
+      deposito[corredor].push(op);
+
+
+      const inputs = document.querySelectorAll('.pendente-input');
+      const pendencias = Array.from(inputs)
+        .map(input => input.value.trim())
+        .filter(val => val !== '');
       
-      const tema = localStorage.getItem('tema') || 'dark';
-      aplicarTema(tema);
-    }
-
-    function salvarDados() {
-      localStorage.setItem('deposito_ops', JSON.stringify(deposito));
-      mostrarAlerta('Alterações salvas com sucesso!', 'success');
-    }
-
-    function autoSalvar() {
-      localStorage.setItem('deposito_ops', JSON.stringify(deposito));
-    }
-
-    function toggleTema() {
-      const temaAtual = document.documentElement.getAttribute('data-theme') || 'dark';
-      const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
-      aplicarTema(novoTema);
-      localStorage.setItem('tema', novoTema);
-    }
-
-    function aplicarTema(tema) {
-      document.documentElement.setAttribute('data-theme', tema);
-      const btn = document.querySelector('.theme-toggle');
-      btn.textContent = '☾';
-    }
-
-    function mostrarPagina(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      
-      const sidebarItems = Array.from(document.querySelectorAll('.sidebar-item'));
-      const index = ['home', 'adicionar', 'deposito', 'consulta'].indexOf(id);
-      if (index >= 0 && sidebarItems[index]) {
-        sidebarItems[index].classList.add('active');
+      if (pendencias.length > 0) {
+        opsPendentes[op] = pendencias;
       }
-      
-      if (id === 'deposito') renderCorredores();
-      if (id === 'home') renderStats();
+
+
+      opsDetalhes[op] = {
+        corredor: corredor,
+        referencia: ref,
+        cor: cor,
+        qtdCaixas: qtd,
+        tipo: tipo,
+        dataAdicao: new Date().toLocaleString('pt-BR')
+      };
+
+      if (tipo === 'parcial') {
+        opsParciais[op] = 'OP Parcial';
+      }
+
+      autoSalvar();
+      renderStats();
+      renderCorredores();
+
+      msg.innerHTML = '<div class="alert alert-success">OP adicionada com sucesso</div>';
+      limparForm();
+      setTimeout(() => msg.innerHTML = '', 3000);
     }
 
-    function renderStats() {
-      const grid = document.getElementById('statsGrid');
-      const totalOps = Object.values(deposito).reduce((acc, ops) => acc + ops.length, 0);
-      const totalCorredores = Object.keys(deposito).length;
+    function limparForm() {
+      document.getElementById('novaOp').value = '';
+      document.getElementById('referencia').value = '';
+      document.getElementById('cor').value = '';
+      document.getElementById('qtdCaixas').value = '';
       
-      const corredorMaisOps = Object.entries(deposito).reduce((max, [nome, ops]) => 
-        ops.length > (max.ops || 0) ? { nome, ops: ops.length } : max, {});
-      
-      grid.innerHTML = `
-        <div class="stat-card">
-          <div class="stat-number">${totalOps}</div>
-          <div class="stat-label">Total de OPs</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">${totalCorredores}</div>
-          <div class="stat-label">Corredores</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">${totalOps > 0 ? Math.round(totalOps / totalCorredores) : 0}</div>
-          <div class="stat-label">Média por Corredor</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">${corredorMaisOps.ops || 0}</div>
-          <div class="stat-label">${corredorMaisOps.nome || 'Nenhum'} (Maior)</div>
+
+      const container = document.getElementById('pendentesList');
+      container.innerHTML = `
+        <div class="pendente-input-row">
+          <input type="text" class="form-input pendente-input" placeholder="Ex: 643213" maxlength="6">
+          <button type="button" class="btn btn-icon btn-danger" onclick="removerPendente(this)" title="Remover">×</button>
         </div>
       `;
     }
 
-    function renderCorredores() {
-      const grid = document.getElementById('corredoresGrid');
-      grid.innerHTML = '';
-      
-      for (const corredor in deposito) {
-        const card = document.createElement('div');
-        card.className = 'corredor-card' + (corredor === corredorSelecionado ? ' selected' : '');
-        card.onclick = () => selecionarCorredor(corredor);
-        card.innerHTML = `
-          <h3>${corredor}</h3>
-          <div class="count">${deposito[corredor].length} OPs</div>
-        `;
-        grid.appendChild(card);
+
+    function removerOP(op, corredor) {
+      if (!confirm('Remover OP?')) return;
+      const idx = deposito[corredor].indexOf(op);
+      if (idx > -1) {
+        deposito[corredor].splice(idx, 1);
+        delete opsParciais[op];
+        delete opsPendentes[op];
+        delete opsDetalhes[op];
+        autoSalvar();
+        renderStats();
+        renderCorredores();
+        fecharModal();
       }
-      
-      if (corredorSelecionado) renderOPs(corredorSelecionado);
     }
 
-    function selecionarCorredor(corredor) {
-      corredorSelecionado = corredor;
-      renderCorredores();
-    }
 
-    function renderOPs(corredor) {
-      const view = document.getElementById('opsView');
-      
-      if (deposito[corredor].length === 0) {
-        view.innerHTML = `<div class="card"><h2>${corredor}</h2><p style="color: var(--text-secondary);">Nenhuma OP cadastrada neste corredor.</p></div>`;
-        return;
-      }
-      
-      view.innerHTML = `<div class="card"><h2>${corredor}</h2><div class="ops-container" id="opsContainer"></div></div>`;
-      
-      const container = document.getElementById('opsContainer');
-      deposito[corredor].forEach(op => {
-        const card = document.createElement('div');
-        card.className = 'op-card';
-        card.innerHTML = `
-          <div class="op-info">
-            <div class="op-numero">${op}</div>
-            <div class="op-local">${corredor}</div>
-          </div>
-          <div class="op-actions">
-            <button class="btn btn-small btn-danger" onclick="removerOP('${op}', '${corredor}')">Remover</button>
-          </div>
-        `;
-        container.appendChild(card);
+    function moverOP(op) {
+      const corredores = Object.keys(deposito);
+      const loc = buscarOP(op);
+      if (!loc) return;
+
+      let opcoesHTML = '';
+      corredores.forEach(c => {
+        if (c !== loc.corredor) {
+          opcoesHTML += `<option value="${c}">${c}</option>`;
+        }
       });
+
+      document.getElementById('modalBody').innerHTML = `
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h2 style="font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 16px;">Mover OP ${op}</h2>
+          <p style="color: var(--text-secondary); font-size: 14px;">Corredor atual: <strong>${loc.corredor}</strong></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Novo Corredor</label>
+          <select id="novoCorredorMover" class="form-select">
+            ${opcoesHTML}
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+          <button class="btn btn-primary" onclick="confirmarMover('${op}', '${loc.corredor}')">Mover</button>
+        </div>
+      `;
+      document.getElementById('modalInfo').classList.add('active');
     }
 
+    function confirmarMover(op, corredorAtual) {
+      const novoCorredor = document.getElementById('novoCorredorMover').value;
+      if (!novoCorredor) return;
+
+      const idx = deposito[corredorAtual].indexOf(op);
+      if (idx > -1) {
+        deposito[corredorAtual].splice(idx, 1);
+        deposito[novoCorredor].push(op);
+        if (opsDetalhes[op]) {
+          opsDetalhes[op].corredor = novoCorredor;
+        }
+ 
+        if (corredorAtual === "Temporário" && opsPendentes[op]) {
+          delete opsPendentes[op];
+        }
+        autoSalvar();
+        renderStats();
+        renderCorredores();
+        fecharModal();
+        alert('OP movida com sucesso');
+      }
+    }
+
+
+    function modificarOP(op) {
+      const det = opsDetalhes[op] || {};
+      const loc = buscarOP(op);
+
+      document.getElementById('modalBody').innerHTML = `
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h2 style="font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 16px;">Modificar OP</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Novo Número</label>
+            <input type="text" id="novoNumeroOP" class="form-input" value="${op}" maxlength="6">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Referência</label>
+            <input type="text" id="novaRefOP" class="form-input" value="${det.referencia || ''}" maxlength="5">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Cor</label>
+            <select id="novaCorOP" class="form-select">
+              <option value="">Selecione</option>
+              <option value="01" ${det.cor === '01' ? 'selected' : ''}>01</option>
+              <option value="02" ${det.cor === '02' ? 'selected' : ''}>02</option>
+              <option value="03" ${det.cor === '03' ? 'selected' : ''}>03</option>
+              <option value="04" ${det.cor === '04' ? 'selected' : ''}>04</option>
+              <option value="05" ${det.cor === '05' ? 'selected' : ''}>05</option>
+              <option value="06" ${det.cor === '06' ? 'selected' : ''}>06</option>
+              <option value="07" ${det.cor === '07' ? 'selected' : ''}>07</option>
+              <option value="08" ${det.cor === '08' ? 'selected' : ''}>08</option>
+              <option value="09" ${det.cor === '09' ? 'selected' : ''}>09</option>
+              <option value="10" ${det.cor === '10' ? 'selected' : ''}>10</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantidade</label>
+            <input type="number" id="novaQtdOP" class="form-input" value="${det.qtdCaixas || ''}" min="0">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+          <button class="btn btn-primary" onclick="confirmarModificar('${op}', '${loc ? loc.corredor : ''}')">Salvar</button>
+        </div>
+      `;
+      document.getElementById('modalInfo').classList.add('active');
+    }
+
+    function confirmarModificar(opAntiga, corredor) {
+      const novoNumero = document.getElementById('novoNumeroOP').value.trim();
+      const novaRef = document.getElementById('novaRefOP').value.trim();
+      const novaCor = document.getElementById('novaCorOP').value;
+      const novaQtd = document.getElementById('novaQtdOP').value.trim();
+
+      if (!novoNumero) return;
+
+
+      if (novoNumero !== opAntiga) {
+        for (const c in deposito) {
+          if (deposito[c].includes(novoNumero)) {
+            alert('Este número de OP já existe');
+            return;
+          }
+        }
+      }
+
+      const idx = deposito[corredor].indexOf(opAntiga);
+      if (idx > -1) {
+ 
+        deposito[corredor][idx] = novoNumero;
+        
+
+        if (novoNumero !== opAntiga) {
+          if (opsParciais[opAntiga]) {
+            opsParciais[novoNumero] = opsParciais[opAntiga];
+            delete opsParciais[opAntiga];
+          }
+          if (opsPendentes[opAntiga]) {
+            opsPendentes[novoNumero] = opsPendentes[opAntiga];
+            delete opsPendentes[opAntiga];
+          }
+          if (opsDetalhes[opAntiga]) {
+            opsDetalhes[novoNumero] = opsDetalhes[opAntiga];
+            delete opsDetalhes[opAntiga];
+          }
+        }
+
+
+        if (!opsDetalhes[novoNumero]) opsDetalhes[novoNumero] = {};
+        opsDetalhes[novoNumero].referencia = novaRef;
+        opsDetalhes[novoNumero].cor = novaCor;
+        opsDetalhes[novoNumero].qtdCaixas = novaQtd;
+
+        autoSalvar();
+        renderStats();
+        renderCorredores();
+        fecharModal();
+        alert('OP Informação salva');
+      }
+    }
+
+    // Buscar OP
     function buscarOP(op) {
-      for (const corredor in deposito) {
-        if (deposito[corredor].includes(op)) {
-          return { corredor, op };
+      for (const c in deposito) {
+        if (deposito[c].includes(op)) {
+          return { corredor: c, op: op };
         }
       }
       return null;
     }
 
-    function adicionarOP() {
-      const op = document.getElementById('novaOp').value.trim();
-      const corredor = document.getElementById('novoCorredor').value;
-      const msg = document.getElementById('msgAdd');
-      
-      if (!op || !corredor) {
-        msg.innerHTML = '<div class="alert alert-error">Preencha todos os campos</div>';
-        return;
-      }
-      
-      if (!/^\d+$/.test(op)) {
-        msg.innerHTML = '<div class="alert alert-error">Digite apenas números na OP</div>';
-        return;
-      }
-      
-      if (op.length !== 6) {
-        msg.innerHTML = '<div class="alert alert-error">A OP deve ter exatamente 6 números</div>';
-        return;
-      }
-      
-      const existe = buscarOP(op);
-      if (existe) {
-        msg.innerHTML = `<div class="alert alert-error">OP já existe em ${existe.corredor}</div>`;
-        return;
-      }
-      
-      deposito[corredor].push(op);
-      autoSalvar();
-      msg.innerHTML = '<div class="alert alert-success">OP adicionada com sucesso!</div>';
-      document.getElementById('novaOp').value = '';
-      setTimeout(() => msg.innerHTML = '', 3000);
-    }
+    function verDetalhes(op, corredor) {
+      const det = opsDetalhes[op] || {};
+      const parc = opsParciais[op];
+      const pend = opsPendentes[op];
 
-    function removerOP(op, corredor) {
-      if (!confirm(`Remover OP ${op}?`)) return;
-      
-      const index = deposito[corredor].indexOf(op);
-      if (index > -1) {
-        deposito[corredor].splice(index, 1);
-        autoSalvar();
-        renderOPs(corredor);
-        mostrarAlerta('OP removida com sucesso', 'success');
-      }
-    }
+      let html = `
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h2 style="font-size: 40px; font-weight: 900; letter-spacing: -2px; margin-bottom: 16px;">OP ${op}</h2>
+          <p style="font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Corredor ${corredor}</p>
+          ${det.dataAdicao ? `<p style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">Adicionada em ${det.dataAdicao}</p>` : ''}
+        </div>
+      `;
 
-    function consultarOP() {
-      const op = document.getElementById('consultaInput').value.trim();
-      const result = document.getElementById('resultadoConsulta');
-      
-      if (!op) {
-        result.innerHTML = '<div class="alert alert-error">Digite uma OP</div>';
-        return;
-      }
-      
-      const local = buscarOP(op);
-      
-      result.innerHTML = `
-        <div class="card" style="margin-top: 20px;">
-          <h2>Resultado da Consulta</h2>
-          <div class="op-card">
-            <div class="op-info">
-              <div class="op-numero">${op}</div>
-              <div class="op-local">${local ? local.corredor : 'Não encontrado no depósito'}</div>
+      if (det.referencia || det.cor || det.qtdCaixas || parc || pend) {
+        html += '<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px;">';
+        
+        if (det.referencia) {
+          html += `
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px;">Referência</div>
+              <div style="font-size: 16px; font-family: 'Courier New', monospace;">${det.referencia}</div>
             </div>
-            ${local ? `<button class="btn btn-small" onclick="irParaCorredor('${local.corredor}')">Ver Corredor</button>` : ''}
+          `;
+        }
+
+        if (det.cor) {
+          html += `
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px;">Cor</div>
+              <div style="font-size: 16px; font-family: 'Courier New', monospace;">${det.cor}</div>
+            </div>
+          `;
+        }
+
+        if (det.qtdCaixas) {
+          html += `
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px;">Quantidade</div>
+              <div style="font-size: 16px; font-family: 'Courier New', monospace;">${det.qtdCaixas} caixas</div>
+            </div>
+          `;
+        }
+
+        if (parc) {
+          html += `
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px;">Status</div>
+              <div style="font-size: 16px; font-family: 'Courier New', monospace;">OP Parcial</div>
+            </div>
+          `;
+        }
+
+        if (pend) {
+          html += `
+            <div>
+              <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px;">OPs Pendentes</div>
+              <div style="font-size: 16px; font-family: 'Courier New', monospace;">
+                ${Array.isArray(pend) ? '• ' + pend.join('<br>• ') : pend}
+              </div>
+            </div>
+          `;
+        }
+
+        html += '</div>';
+      }
+
+      html += `
+        <div class="modal-actions">
+          <button class="btn" onclick="moverOP('${op}')">Mover OP</button>
+          <button class="btn" onclick="modificarOP('${op}')">Modificar OP</button>
+          <button class="btn btn-danger" onclick="removerOP('${op}', '${corredor}')">Remover OP</button>
+        </div>
+      `;
+
+      document.getElementById('modalBody').innerHTML = html;
+      document.getElementById('modalInfo').classList.add('active');
+    }
+
+
+    function renderCorredores() {
+      const g = document.getElementById('corredoresGrid');
+      if (!g) return;
+      g.innerHTML = '';
+
+      for (const c in deposito) {
+        const card = document.createElement('div');
+        const isTemp = c === "Temporário";
+        card.className = 'corredor-card' + (c === corredorSelecionado ? ' selected' : '') + (isTemp ? ' temporario' : '');
+        card.onclick = () => selecionarCorredor(c);
+        card.innerHTML = `
+          <div class="corredor-nome">${isTemp ? '📦 ' : ''}${c}</div>
+          <div class="corredor-info">
+            <span>OPs</span>
+            <span class="corredor-count">${deposito[c].length}</span>
           </div>
+        `;
+        g.appendChild(card);
+      }
+
+      if (corredorSelecionado) renderOPs(corredorSelecionado);
+    }
+
+    function selecionarCorredor(c) {
+      corredorSelecionado = c;
+      renderCorredores();
+    }
+
+    function renderOPs(c) {
+      const v = document.getElementById('opsView');
+      if (!v) return;
+
+      if (!deposito[c] || deposito[c].length === 0) {
+        v.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><h3 class="empty-title">Corredor vazio</h3><p class="empty-text">Nenhuma OP neste corredor</p></div>';
+        return;
+      }
+
+      v.innerHTML = '<div class="card"><h2 class="card-title">' + c + '</h2><div class="ops-list" id="opsContainer"></div></div>';
+      const cont = document.getElementById('opsContainer');
+
+      deposito[c].forEach(op => {
+        const card = document.createElement('div');
+        card.className = 'op-item';
+        const parc = opsParciais[op];
+        const pend = opsPendentes[op];
+        const det = opsDetalhes[op] || {};
+
+        let detHTML = '';
+        if (det.referencia || det.cor || det.qtdCaixas) {
+          detHTML = '<div class="op-detalhes">';
+          if (det.referencia) {
+            detHTML += `<div class="op-detalhe-item"><div class="op-detalhe-label">Referência</div><div class="op-detalhe-value">${det.referencia}</div></div>`;
+          }
+          if (det.cor) {
+            detHTML += `<div class="op-detalhe-item"><div class="op-detalhe-label">Cor</div><div class="op-detalhe-value">${det.cor}</div></div>`;
+          }
+          if (det.qtdCaixas) {
+            detHTML += `<div class="op-detalhe-item"><div class="op-detalhe-label">Quantidade</div><div class="op-detalhe-value">${det.qtdCaixas} cx</div></div>`;
+          }
+          detHTML += '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="op-icon">📦</div>
+          <div class="op-content">
+            <div class="op-numero">
+              ${op}
+              ${pend ? '<span class="badge badge-pendente">Pendente</span>' : ''}
+              ${parc ? '<span class="badge badge-parcial">Parcial</span>' : ''}
+            </div>
+            <div class="op-local">${c}</div>
+            ${detHTML}
+          </div>
+          <div class="op-actions">
+            <button class="btn btn-small" onclick="verDetalhes('${op}', '${c}')">Ver</button>
+            <button class="btn btn-small btn-danger" onclick="removerOP('${op}', '${c}')">Remover</button>
+          </div>
+        `;
+        cont.appendChild(card);
+      });
+    }
+
+
+    function renderStats() {
+      const container = document.getElementById('statsContainer');
+      if (!container) return;
+
+      let totalOPs = 0;
+      for (const c in deposito) totalOPs += deposito[c].length;
+
+      const totalParciais = Object.keys(opsParciais).length;
+      const totalPendentes = Object.keys(opsPendentes).length;
+      const totalAmostras = amostras.length;
+
+      container.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-label">Total de OPs</div>
+          <div class="stat-value">${totalOPs}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">OPs Parciais</div>
+          <div class="stat-value">${totalParciais}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">OPs Pendentes</div>
+          <div class="stat-value">${totalPendentes}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Amostras</div>
+          <div class="stat-value">${totalAmostras}</div>
         </div>
       `;
     }
 
-    function irParaCorredor(corredor) {
-      mostrarPagina('deposito');
-      corredorSelecionado = corredor;
-      renderCorredores();
+    // Buscar e consultar
+    function mudarTipoBusca() {
+      const tipo = document.getElementById('tipoBusca').value;
+      document.getElementById('campoBuscaOP').style.display = tipo === 'op' ? 'block' : 'none';
+      document.getElementById('campoBuscaRef').style.display = tipo === 'referencia' ? 'block' : 'none';
+      document.getElementById('campoBuscaPendente').style.display = tipo === 'pendente' ? 'block' : 'none';
     }
 
-    function buscarOPGlobal() {
-      const termo = document.getElementById('searchInput').value.trim();
-      if (!termo) return;
-      
-      const resultado = buscarOP(termo);
-      if (resultado) {
-        mostrarPagina('deposito');
-        corredorSelecionado = resultado.corredor;
-        renderCorredores();
-        mostrarAlerta('OP encontrada!', 'success');
-      } else {
-        mostrarAlerta('OP não encontrada', 'error');
+    function realizarConsulta() {
+      const tipo = document.getElementById('tipoBusca').value;
+      const resultado = document.getElementById('resultadoConsulta');
+
+      if (tipo === 'op') {
+        const op = document.getElementById('consultaInput').value.trim();
+        if (!op) {
+          resultado.innerHTML = '<div class="alert alert-error">Digite uma OP</div>';
+          return;
+        }
+
+        const loc = buscarOP(op);
+        if (!loc) {
+          resultado.innerHTML = '<div class="empty-state"><div class="empty-icon">X</div><h3 class="empty-title">OP não encontrada</h3><p class="empty-text">Tente outro número</p></div>';
+          return;
+        }
+
+        const det = opsDetalhes[op] || {};
+        const parc = opsParciais[op];
+        const pend = opsPendentes[op];
+
+        let html = `
+          <div class="resultado-header">
+            <div class="resultado-header-icon">✓</div>
+            <div class="resultado-header-text">
+              <h3> OP Encontrada</h3>
+              <p>1 resultado para "${op}"</p>
+            </div>
+          </div>
+          <div class="op-item">
+            <div class="op-icon">✓</div>
+            <div class="op-content">
+              <div class="op-numero">
+                ${op}
+                ${pend ? '<span class="badge badge-pendente">Pendente</span>' : ''}
+                ${parc ? '<span class="badge badge-parcial">Parcial</span>' : ''}
+              </div>
+              <div class="op-local">${loc.corredor}</div>
+        `;
+
+        if (det.referencia || det.cor || det.qtdCaixas) {
+          html += '<div class="op-detalhes">';
+          if (det.referencia) html += `<div class="op-detalhe-item"><div class="op-detalhe-label">Referência</div><div class="op-detalhe-value">${det.referencia}</div></div>`;
+          if (det.cor) html += `<div class="op-detalhe-item"><div class="op-detalhe-label">Cor</div><div class="op-detalhe-value">${det.cor}</div></div>`;
+          if (det.qtdCaixas) html += `<div class="op-detalhe-item"><div class="op-detalhe-label">Quantidade</div><div class="op-detalhe-value">${det.qtdCaixas} cx</div></div>`;
+          html += '</div>';
+        }
+
+        html += `
+            </div>
+            <div class="op-actions">
+              <button class="btn btn-small" onclick="verDetalhes('${op}', '${loc.corredor}')">Ver Detalhes</button>
+            </div>
+          </div>
+        `;
+
+        resultado.innerHTML = html;
+      }
+
+      if (tipo === 'referencia') {
+        const ref = document.getElementById('consultaRefInput').value.trim();
+        if (!ref) {
+          resultado.innerHTML = '<div class="alert alert-error">Digite uma referência</div>';
+          return;
+        }
+
+        let encontradas = [];
+        for (const c in deposito) {
+          deposito[c].forEach(op => {
+            const det = opsDetalhes[op] || {};
+            if (det.referencia && det.referencia.toLowerCase().includes(ref.toLowerCase())) {
+              encontradas.push({ op, corredor: c, det });
+            }
+          });
+        }
+
+        if (encontradas.length === 0) {
+          resultado.innerHTML = '<div class="empty-state"><div class="empty-icon">X</div><h3 class="empty-title">Nenhuma OP encontrada</h3><p class="empty-text">Tente outra referência</p></div>';
+          return;
+        }
+
+        let html = `
+          <div class="resultado-header">
+            <div class="resultado-header-icon"></div>
+            <div class="resultado-header-text">
+              <h3>${encontradas.length} OP${encontradas.length > 1 ? 's' : ''} Encontrada${encontradas.length > 1 ? 's' : ''}</h3>
+              <p>Referência: ${ref}</p>
+            </div>
+          </div>
+          <div class="ops-list">
+        `;
+        encontradas.forEach(item => {
+          html += `
+            <div class="op-item">
+              <div class="op-icon">✓</div>
+              <div class="op-content">
+                <div class="op-numero">${item.op}</div>
+                <div class="op-local">${item.corredor}</div>
+                <div class="op-detalhes">
+                  <div class="op-detalhe-item">
+                    <div class="op-detalhe-label">Referência</div>
+                    <div class="op-detalhe-value">${item.det.referencia}</div>
+                  </div>
+                  ${item.det.cor ? `<div class="op-detalhe-item"><div class="op-detalhe-label">Cor</div><div class="op-detalhe-value">${item.det.cor}</div></div>` : ''}
+                </div>
+              </div>
+              <div class="op-actions">
+                <button class="btn btn-small" onclick="verDetalhes('${item.op}', '${item.corredor}')">Ver</button>
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        resultado.innerHTML = html;
+      }
+
+      if (tipo === 'pendente') {
+        const pend = document.getElementById('consultaPendenteInput').value.trim();
+        if (!pend) {
+          resultado.innerHTML = '<div class="alert alert-error">Digite uma OP pendente</div>';
+          return;
+        }
+
+        let encontradas = [];
+        for (const op in opsPendentes) {
+          const pendencias = opsPendentes[op];
+          if (Array.isArray(pendencias) && pendencias.includes(pend)) {
+            const loc = buscarOP(op);
+            if (loc) encontradas.push({ op, corredor: loc.corredor });
+          }
+        }
+
+        if (encontradas.length === 0) {
+          resultado.innerHTML = '<div class="empty-state"><div class="empty-icon">✗</div><h3 class="empty-title">Nenhuma Ref encontrada</h3><p class="empty-text">Tente outro número</p></div>';
+          return;
+        }
+
+        let html = `
+          <div class="resultado-header">
+            <div class="resultado-header-icon">⚠️</div>
+            <div class="resultado-header-text">
+              <h3>${encontradas.length} OP${encontradas.length > 1 ? 's' : ''} com Pendência</h3>
+              <p>OP Pendente: ${pend}</p>
+            </div>
+          </div>
+          <div class="ops-list">
+        `;
+        encontradas.forEach(item => {
+          html += `
+            <div class="op-item">
+              <div class="op-icon">⚠️</div>
+              <div class="op-content">
+                <div class="op-numero">${item.op} <span class="badge badge-pendente">Pendente</span></div>
+                <div class="op-local">${item.corredor}</div>
+                <div class="op-detalhes">
+                  <div class="op-detalhe-item">
+                    <div class="op-detalhe-label">OP Pendente</div>
+                    <div class="op-detalhe-value">${pend}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="op-actions">
+                <button class="btn btn-small" onclick="verDetalhes('${item.op}', '${item.corredor}')">Ver</button>
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        resultado.innerHTML = html;
       }
     }
 
-    function mostrarAlerta(msg, tipo) {
-      const alert = document.createElement('div');
-      alert.className = `alert alert-${tipo}`;
-      alert.textContent = msg;
-      alert.style.position = 'fixed';
-      alert.style.top = '80px';
-      alert.style.right = '24px';
-      alert.style.zIndex = '9999';
-      document.body.appendChild(alert);
-      setTimeout(() => alert.remove(), 3000);
+
+    function adicionarAmostra() {
+      const marca = document.getElementById('amostraMarca').value;
+      const ref = document.getElementById('amostraRef').value.trim();
+      const numero = document.getElementById('amostraNumero').value.trim();
+      const fotoInput = document.getElementById('amostraFoto');
+      const msg = document.getElementById('msgAmostra');
+
+      if (!marca || !ref || !numero || !fotoInput.files[0]) {
+        msg.innerHTML = '<div class="alert alert-error">Preencha todos os campos</div>';
+        setTimeout(() => msg.innerHTML = '', 3000);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        const amostra = {
+          id: proximoIdAmostra++,
+          marca,
+          ref,
+          numero,
+          foto: e.target.result,
+          data: new Date().toLocaleString('pt-BR')
+        };
+        amostras.push(amostra);
+        autoSalvar();
+        renderStats();
+        limparFormAmostra();
+        renderAmostras();
+        msg.innerHTML = '<div class="alert alert-success">Amostra cadastrada</div>';
+        setTimeout(() => msg.innerHTML = '', 3000);
+      };
+      reader.readAsDataURL(fotoInput.files[0]);
     }
 
-    function limparForm() {
-      document.getElementById('novaOp').value = '';
+    function limparFormAmostra() {
+      document.getElementById('amostraMarca').value = '';
+      document.getElementById('amostraRef').value = '';
+      document.getElementById('amostraNumero').value = '';
+      document.getElementById('amostraFoto').value = '';
+      document.getElementById('amostraFotoPreview').style.display = 'none';
+      
+      const uploadSection = document.getElementById('uploadSection');
+      if (uploadSection) {
+        uploadSection.classList.remove('has-file');
+        uploadSection.innerHTML = `
+          <div class="upload-icon"></div>
+          <div class="upload-text">Clique para selecionar uma foto</div>
+          <div class="upload-hint">JPG, PNG ou WEBP - Máx 5MB</div>
+        `;
+      }
     }
+
+    function renderAmostras() {
+      renderMarcaTabs();
+      renderGaleriaAmostras();
+      atualizarContadorAmostras();
+    }
+
+    function atualizarContadorAmostras() {
+      const counter = document.getElementById('amostrasCount');
+      if (counter) {
+        const total = marcaSelecionada ? amostras.filter(a => a.marca === marcaSelecionada).length : amostras.length;
+        counter.textContent = `${total} amostra${total !== 1 ? 's' : ''} ${marcaSelecionada ? 'da marca ' + marcaSelecionada : 'cadastradas'}`;
+      }
+    }
+
+    function renderMarcaTabs() {
+      const tabs = document.getElementById('marcaTabs');
+      if (!tabs) return;
+      tabs.innerHTML = '';
+
+      const todasBtn = document.createElement('button');
+      todasBtn.className = 'marca-tab' + (marcaSelecionada === null ? ' active' : '');
+      todasBtn.textContent = `Todas (${amostras.length})`;
+      todasBtn.onclick = () => selecionarMarca(null);
+      tabs.appendChild(todasBtn);
+
+      MARCAS.forEach(marca => {
+        const count = amostras.filter(a => a.marca === marca).length;
+        if (count > 0) {
+          const btn = document.createElement('button');
+          btn.className = 'marca-tab' + (marcaSelecionada === marca ? ' active' : '');
+          btn.textContent = `${marca} (${count})`;
+          btn.onclick = () => selecionarMarca(marca);
+          tabs.appendChild(btn);
+        }
+      });
+    }
+
+    function selecionarMarca(marca) {
+      marcaSelecionada = marca;
+      renderMarcaTabs();
+      renderGaleriaAmostras();
+      atualizarContadorAmostras();
+    }
+
+    function renderGaleriaAmostras() {
+      const gal = document.getElementById('galeriaAmostras');
+      if (!gal) return;
+      const filtradas = marcaSelecionada ? amostras.filter(a => a.marca === marcaSelecionada) : amostras;
+
+      if (filtradas.length === 0) {
+        gal.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-icon"></div><h3 class="empty-title">Nenhuma amostra</h3><p class="empty-text">Cadastre amostras para visualizá-las aqui</p></div>';
+        return;
+      }
+
+      gal.innerHTML = '';
+      filtradas.forEach(a => {
+        const card = document.createElement('div');
+        card.className = 'amostra-card';
+        card.innerHTML = `
+          <img src="${a.foto}" class="amostra-foto" alt="${a.ref}" loading="lazy">
+          <div class="amostra-info">
+            <div class="amostra-ref">${a.ref}</div>
+            <div class="amostra-numero">${a.numero}</div>
+            <div class="amostra-marca">${a.marca}</div>
+            <div class="amostra-actions">
+              <button class="btn btn-small" onclick="verAmostra(${a.id})">Ver Detalhes</button>
+              <button class="btn btn-small btn-danger" onclick="removerAmostra(${a.id})">Remover</button>
+            </div>
+          </div>
+        `;
+        gal.appendChild(card);
+      });
+    }
+
+    function verAmostra(id) {
+      const a = amostras.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('modalBody').innerHTML = `
+        <div style="text-align: center;">
+          <h3 style="font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 12px;">${a.ref}</h3>
+          <p style="font-size: 18px; font-family: 'Courier New', monospace; color: var(--text-secondary); margin-bottom: 12px;">${a.numero}</p>
+          <p style="color: var(--text); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; margin-bottom: 24px;">${a.marca}</p>
+          <img src="${a.foto}" style="width: 100%; max-width: 500px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border);">
+          <p style="color: var(--text-secondary); font-size: 12px;">Cadastrado em: ${a.data}</p>
+        </div>
+      `;
+      document.getElementById('modalInfo').classList.add('active');
+    }
+
+    function removerAmostra(id) {
+      if (!confirm('Remover amostra?')) return;
+      const idx = amostras.findIndex(a => a.id === id);
+      if (idx > -1) {
+        amostras.splice(idx, 1);
+        autoSalvar();
+        renderStats();
+        renderAmostras();
+      }
+    }
+
+    function fecharModal() {
+      document.getElementById('modalInfo').classList.remove('active');
+    }
+
+
+    function autoSalvar() {
+      localStorage.setItem('deposito_ops', JSON.stringify(deposito));
+      localStorage.setItem('ops_parciais', JSON.stringify(opsParciais));
+      localStorage.setItem('ops_pendentes', JSON.stringify(opsPendentes));
+      localStorage.setItem('ops_detalhes', JSON.stringify(opsDetalhes));
+      localStorage.setItem('amostras', JSON.stringify(amostras));
+      localStorage.setItem('proximoIdAmostra', proximoIdAmostra);
+    }
+
+    function carregarDados() {
+      try {
+        const saved = localStorage.getItem('deposito_ops');
+        if (saved) deposito = JSON.parse(saved);
+      } catch (e) {
+        console.error('Erro ao carregar depósito:', e);
+      }
+
+      try {
+        const savedParciais = localStorage.getItem('ops_parciais');
+        if (savedParciais) opsParciais = JSON.parse(savedParciais);
+      } catch (e) {
+        console.error('Erro ao carregar ops parciais:', e);
+      }
+
+      try {
+        const savedPendentes = localStorage.getItem('ops_pendentes');
+        if (savedPendentes) opsPendentes = JSON.parse(savedPendentes);
+      } catch (e) {
+        console.error('Erro ao carregar ops pendentes:', e);
+      }
+
+      try {
+        const savedDetalhes = localStorage.getItem('ops_detalhes');
+        if (savedDetalhes) opsDetalhes = JSON.parse(savedDetalhes);
+      } catch (e) {
+        console.error('Erro ao carregar detalhes:', e);
+      }
+
+      try {
+        const savedAmostras = localStorage.getItem('amostras');
+        if (savedAmostras) {
+          amostras = JSON.parse(savedAmostras);
+          if (amostras.length > 0) {
+            proximoIdAmostra = Math.max(...amostras.map(a => a.id)) + 1;
+          }
+        }
+      } catch (e) {
+        console.error('Erro ao carregar amostras:', e);
+      }
+
+      const tema = localStorage.getItem('tema') || 'dark';
+      if (tema === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }
+
 
     function exportarDados() {
       const data = {
-        deposito: deposito,
+        deposito,
+        opsParciais,
+        opsPendentes,
+        opsDetalhes,
+        amostras,
         exportadoEm: new Date().toLocaleString('pt-BR')
       };
-      const json = JSON.stringify(data, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `deposito_backup_${Date.now()}.json`;
+      a.download = `deposito_${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      mostrarAlerta('Dados exportados!', 'success');
+      alert('Dados exportados');
     }
 
     function importarDados() {
@@ -854,46 +2532,106 @@
     function carregarArquivo(e) {
       const file = e.target.files[0];
       if (!file) return;
-      
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         try {
           const data = JSON.parse(e.target.result);
-          
-          if (data.deposito) {
-            deposito = data.deposito;
+          if (data.deposito) deposito = data.deposito;
+          if (data.opsParciais) opsParciais = data.opsParciais;
+          if (data.opsPendentes) opsPendentes = data.opsPendentes;
+          if (data.opsDetalhes) opsDetalhes = data.opsDetalhes;
+          if (data.amostras) {
+            amostras = data.amostras;
+            if (amostras.length > 0) {
+              proximoIdAmostra = Math.max(...amostras.map(a => a.id)) + 1;
+            }
           }
-          
           autoSalvar();
-          renderCorredores();
           renderStats();
-          mostrarAlerta('Dados importados com sucesso!', 'success');
+          renderCorredores();
+          renderAmostras();
+          alert('Dados importados');
         } catch (err) {
-          mostrarAlerta('Erro ao importar arquivo', 'error');
-          console.error('Erro:', err);
+          alert('Erro ao importar');
         }
       };
       reader.readAsText(file);
     }
 
-    document.getElementById('searchInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') buscarOPGlobal();
+
+    window.addEventListener('DOMContentLoaded', () => {
+ 
+      const selectCorredor = document.getElementById('novoCorredor');
+      if (selectCorredor) {
+        for (const c in deposito) {
+          if (c !== 'Temporário') {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            selectCorredor.appendChild(opt);
+          }
+        }
+      }
+
+      const amostraFoto = document.getElementById('amostraFoto');
+      const preview = document.getElementById('amostraFotoPreview');
+      const uploadSection = document.getElementById('uploadSection');
+      
+      if (amostraFoto && preview) {
+        amostraFoto.addEventListener('change', e => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = ev => {
+              preview.src = ev.target.result;
+              preview.style.display = 'block';
+              if (uploadSection) {
+                uploadSection.classList.add('has-file');
+                uploadSection.innerHTML = `
+                  <div class="upload-icon">✓</div>
+                  <div class="upload-text" style="color: var(--text);">${file.name}</div>
+                  <div class="upload-hint">Clique para trocar a foto</div>
+                `;
+              }
+            };
+            reader.readAsDataURL(file);
+          } else {
+            preview.style.display = 'none';
+            if (uploadSection) {
+              uploadSection.classList.remove('has-file');
+              uploadSection.innerHTML = `
+                <div class="upload-icon"></div>
+                <div class="upload-text">Clique para selecionar uma foto</div>
+                <div class="upload-hint">JPG, PNG ou WEBP - Máx 5MB</div>
+              `;
+            }
+          }
+        });
+      }
+
+      ['novaOp', 'consultaInput', 'consultaPendenteInput'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', function() {
+          this.value = this.value.replace(/\D/g, '');
+        });
+      });
+
+      document.addEventListener('input', e => {
+        if (e.target.classList.contains('pendente-input')) {
+          e.target.value = e.target.value.replace(/\D/g, '');
+        }
+      });
+
+      carregarDados();
+      renderStats();
+      renderCorredores();
+      renderAmostras();
+      setInterval(autoSalvar, 30000);
     });
 
-    document.getElementById('consultaInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') consultarOP();
+    document.getElementById('modalInfo').addEventListener('click', e => {
+      if (e.target.id === 'modalInfo') fecharModal();
     });
-
-    const selectCorredor = document.getElementById('novoCorredor');
-    for (const corredor in deposito) {
-      const opt = document.createElement('option');
-      opt.value = corredor;
-      opt.textContent = corredor;
-      selectCorredor.appendChild(opt);
-    }
-
-    carregarDados();
-    renderStats();
   </script>
 </body>
 </html>
